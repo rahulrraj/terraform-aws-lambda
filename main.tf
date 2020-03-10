@@ -41,8 +41,8 @@ module "secondary_api_resources" {
   timeout                     = "${var.timeout}"
   memory_size                 = "${var.memory_size}"
   stage_name                  = "${var.stage_name}"
-  s3_bucket                   = "${local.secondary_lambda_s3_bucket_name}"
-
+  #s3_bucket                   = "${local.secondary_lambda_s3_bucket_name}"
+  s3_bucket                   = "${var.routing_policy == "failover" ? aws_s3_bucket.secondary_lambda_s3_bucket.bucket : ""}"
   
   s3_key                      = "${var.lambda_zip_file_shortname}"
   department_tag              = "${var.department_tag}"

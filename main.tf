@@ -3,7 +3,7 @@ module "api_resources" {
     aws             = "aws"
     aws.dns         = "aws.dns"
   }
-  source                      = "../lambda/common"
+  source                      = "./modules/common"
   name                        = "${var.name}"
   vpc_id                      = "${var.vpc_id}"
   subnets                     = "${var.subnets}"
@@ -30,7 +30,7 @@ module "secondary_api_resources" {
     aws.dns         = "aws.dns"
 
   }
-  source                      = "../lambda/common"
+  source                      = "./modules/common"
   name                        = "${var.name}"
   vpc_id                      = "${var.secondary_vpc_id}"
   subnets                     = "${var.secondary_subnets}"

@@ -44,6 +44,7 @@ resource "aws_security_group" "lambda_function_security_group" {
 }
 
 resource "aws_security_group_rule" "lambda_function_security_group_rule_https" {
+  count             = "${var.enable ? 1 : 0}"
   type              = "ingress"
   from_port         = 443
   to_port           = 443
@@ -52,6 +53,7 @@ resource "aws_security_group_rule" "lambda_function_security_group_rule_https" {
   cidr_blocks       = ["10.0.0.0/8"]
 }
 resource "aws_security_group_rule" "lambda_function_security_group_rule_splunk" {
+  count             = "${var.enable ? 1 : 0}"
   type              = "egress"
   from_port         = 8088
   to_port           = 8088
@@ -61,6 +63,7 @@ resource "aws_security_group_rule" "lambda_function_security_group_rule_splunk" 
   cidr_blocks       = ["10.0.0.0/8"]
 }
 resource "aws_security_group_rule" "lambda_function_security_group_rule_http" {
+  count             = "${var.enable ? 1 : 0}"
   type              = "ingress"
   from_port         = 80
   to_port           = 80

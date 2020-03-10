@@ -13,5 +13,5 @@ The module creates a security group for the lambda function and add ingress rule
 
 # Known Issue
 - Running this for the first time may take little extra time as AWS certificate validation can take anywhere up to 40 min
-- Running this for the first time with failover fails with error about missing s3 bucket. Re-run it and it should be fine. Looking into it to find how to handle it.
-- Sometime when you extent the SG, it does not get added. Need to look further into it.
+- Running this for the first time with failover fails with error about missing s3 bucket. Re-run it and it should be fine. Looking into it to find how to handle it. 
+- Deleting security group which has been added to lambda function, takes a long time as security group is associated to network interface. You can manually associate the network interface and then it will be quick. 

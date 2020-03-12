@@ -21,6 +21,7 @@ variable "vpc_id" {
 
 variable "secondary_vpc_id" {
   description = "VPC where failover resources will be created."
+  default = ""
 }
 
 variable "subnets" {
@@ -31,6 +32,7 @@ variable "subnets" {
 variable "secondary_subnets" {
   description = "VPC subnet IDs for failover resources"
   type = "list"
+  default = []
 }
 ############### DNS ########################
 variable "fqdn" {}

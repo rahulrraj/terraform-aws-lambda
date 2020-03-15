@@ -53,6 +53,6 @@ resource "aws_api_gateway_base_path_mapping" "secondary_api_gateway_base_path_ma
   count       = "${var.routing_policy == "failover" ? 1 : 0}" 
   provider    = "aws.secondary"
   api_id      = "${module.secondary_api_resources.api_id[0]}"
-  stage_name  = "all"
+  stage_name  = "${var.stage_name}"
   domain_name = "${aws_api_gateway_domain_name.secondary_api_gateway_domain_name.domain_name}"
 }

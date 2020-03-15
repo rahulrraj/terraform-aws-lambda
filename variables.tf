@@ -20,7 +20,7 @@ variable "vpc_id" {
 }
 
 variable "secondary_vpc_id" {
-  description = "VPC where failover resources will be created."
+  description = "(Required for failover routing policy) VPC where failover resources will be created."
   default = ""
 }
 
@@ -30,7 +30,7 @@ variable "subnets" {
 }
 
 variable "secondary_subnets" {
-  description = "VPC subnet IDs for failover resources"
+  description = "(Required for failover routing policy) VPC subnet IDs for failover resources"
   type = "list"
   default = []
 }
@@ -48,7 +48,7 @@ variable health_check_resource_path {
 
 ############### Lambda ########################
 variable "aws_lambda_function_role_arn" {
-  default = "delete me"
+  default = ""
 }
 variable "lambda_zip_file_fullname" {
   description = "The package file full path name"

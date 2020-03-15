@@ -9,12 +9,12 @@ output "secondary_lambda_security_group_ids" {
 
 output "lambda_iam_role_name" {
   description = "IAM Role name, user by the lambda function"
-  value = "${aws_iam_role.iam_role_lambda_function.name}"
+  value = "${aws_iam_role.iam_role_lambda_function.*.name}"
 }
 
 output "lambda_iam_role_arn" {
   description = "IAM Role arn, user by the lambda function"
-  value = "${aws_iam_role.iam_role_lambda_function.arn}"
+  value = "${aws_iam_role.iam_role_lambda_function.*.arn}"
 }
 
 output "a_record_name" {

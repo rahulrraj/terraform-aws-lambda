@@ -3,7 +3,7 @@ Terraform module to create AWS Lambda and API gateway with {proxy+} integration.
 
 This module was developed to support REST api with lambda function with a primary use case of running lambda with .NET Core 3.1, so most of the default variable are set with keeping that in mind. As of now the module has been tested with .NET Core 2.1, 2.2 and 3.1. In general this module just creates AWS infrastructure, so ideally any runtime environment should work.
 
-![multi-region-lambda](https://github.com/hashicorp/terraform-aws-terraform-enterprise/blob/master/assets/aws_diagram.jpg?raw=true)
+![multi-region-lambda](https://github.com/rahulrraj/terraform-aws-lambda/blob/master/documentation/multi-region-lambda.jpg?raw=true)
 
 # Extend Lambda IAM role
 The module creates an IAM role for the lambda function and adds access to S3, ENI, lambda, xRay, log. These are common AWS services which is required for lambda to run. For adding any additional role policy, the module returns the AWS IAM role arn and it's name. You can use them in the calling module to add any additional policy like access to a specific dynamo table.

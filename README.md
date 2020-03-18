@@ -19,12 +19,6 @@ The module creates an IAM role for the lambda function and adds access to S3, EN
 
 ```
 
-In case you do not want the module to create an IAM role, the calling module can pass IAM role aws_lambda_function_role_arn, which will be used in the lambda function. Refer following example
-
-```
-	aws_lambda_function_role_arn = "${aws_iam_role.iam_role_lambda_function.arn}"
-```
-
 # Extend Lambda Security Group
 The module creates a security group for the lambda function and add ingress rule for HTTP(80) and HTTPs(443) and add egress to access Splunk (8088). For any additional application-level ingress/egress rule, the module outputs security_group_id for the primary website and also for the secondary in case of failover. This will enable you to add additional security group rules, like opening port to access the SQL server. The SG id for the secondary lambda resource is returned as an array so you need to access it as [0]. Refer following example, which will add egress rule to the security group
 
@@ -45,3 +39,4 @@ resource "aws_security_group_rule" "sql_egress" {
 - Running this for the first time may take little extra time as AWS certificate validation can take anywhere up to 40 min
 - Running this for the first time with failover fails with an error about missing s3 bucket (S3 Error Code: NoSuchKey. S3 Error Message: The specified key does not exist.). Re-run it and it should be fine. Looking into it to find how to handle it. 
 - Deleting the security group which has been added to a lambda function, takes a long time as a security group is associated with the network interface. You can manually associate the network interface and then it will be quick. 
+- 

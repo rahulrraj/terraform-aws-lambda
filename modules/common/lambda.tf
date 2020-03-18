@@ -6,8 +6,8 @@ resource "aws_lambda_function" "lambda_function" {
   function_name = "${var.name}"
   role          = "${var.aws_lambda_function_role}"
 
-  s3_bucket     = "${var.s3_bucket}"
-  s3_key        = "${var.s3_key}"
+  s3_bucket     = "${aws_s3_bucket.lambda_s3_bucket.bucket}"
+  s3_key        = "${var.lambda_zip_file_shortname}"
 
   timeout       = "${var.timeout}"
   memory_size   = "${var.memory_size}"

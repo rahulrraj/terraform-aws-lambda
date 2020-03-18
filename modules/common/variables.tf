@@ -44,12 +44,19 @@ variable "timeout"{
 variable "memory_size"{
   default = "512"
 }
-
+variable "lambda_zip_file_fullname" {
+  description = "The package file full path name"
+}
+variable "lambda_zip_file_shortname" {
+  description = "The package file full path name"
+}
 variable "stage_name"{
   default = "all"
 }
 
 ############### S3 ########################
+
+/*
 variable "s3_bucket" {
  
 }
@@ -57,6 +64,7 @@ variable "s3_bucket" {
 variable "s3_key" {
   
 }
+*/
 
 ############### locals ########################
 locals {

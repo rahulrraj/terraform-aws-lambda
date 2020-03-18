@@ -35,7 +35,9 @@ variable "secondary_subnets" {
   default = []
 }
 ############### DNS ########################
-variable "fqdn" {}
+variable "fqdn" {
+  description = "Fully qualified domain name"
+}
 variable "zone_id" {}
 
 variable routing_policy {

@@ -2,6 +2,9 @@
 # Lambda Function
 ############################################################################
 resource "aws_lambda_function" "lambda_function" {
+  depends_on  = [
+    "aws_s3_bucket_object.lambda_s3_bucket_object"
+  ]
   count         = "${var.enable ? 1 : 0}"
   function_name = "${var.name}"
   role          = "${var.aws_lambda_function_role}"

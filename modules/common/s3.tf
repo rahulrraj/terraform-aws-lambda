@@ -3,7 +3,7 @@
 ############################################################################
 resource "aws_s3_bucket" "lambda_s3_bucket" {
   count         = "${var.enable ? 1 : 0}"
-  bucket        = "${local.lambda_s3_bucket_name}"
+  bucket        = "${var.lambda_s3_bucket_name}"
   force_destroy = true
   tags          = "${local.tags}"
 }

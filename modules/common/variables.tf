@@ -60,11 +60,11 @@ variable "stage_name"{
 variable "s3_bucket" {
  
 }
-
-variable "s3_key" {
+*/
+variable "lambda_s3_bucket_name" {
   
 }
-*/
+
 
 ############### locals ########################
 locals {
@@ -73,4 +73,5 @@ locals {
     Department  = "${var.department_tag}"
     Project     = "${var.project_tag}"
   }
+
 }

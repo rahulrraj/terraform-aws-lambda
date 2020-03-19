@@ -4,8 +4,9 @@ module "api_with_failover_routing" {
     aws.dns         = "aws.dns"
     aws.secondary   = "aws.ohio"
   }
-  source                      = "rahulrraj/lambda/aws"
-  version                     = "0.0.2"
+  source                      = "../../"
+  #source                      = "rahulrraj/lambda/aws"
+  #version                     = "0.0.2"
   name                        = "${var.name}"
   vpc_id                      = "${var.aws_vpc_id}"
   secondary_vpc_id            = "${var.aws_secondary_vpc_id}"

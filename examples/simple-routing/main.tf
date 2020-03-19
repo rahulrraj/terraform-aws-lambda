@@ -4,9 +4,9 @@ module "api_with_simple_routing" {
     aws.dns         = "aws.dns"
     aws.secondary   = "aws.ohio"
   }
-  # source                      = "../../"
-  source                      = "rahulrraj/lambda/aws"
-  version                     = "0.0.2"
+  source                      = "../../"
+  #source                      = "rahulrraj/lambda/aws"
+  #version                     = "0.0.2"
   name                        = "${var.name}-simple"
   vpc_id                      = "${var.aws_vpc_id}"
   subnets                     = ["${var.aws_vpc_subnet_primary}", "${var.aws_vpc_subnet_secondary}"]

@@ -55,16 +55,9 @@ variable "stage_name"{
 }
 
 ############### S3 ########################
-
-/*
-variable "s3_bucket" {
- 
-}
-*/
 variable "lambda_s3_bucket_name" {
   
 }
-
 
 ############### locals ########################
 locals {

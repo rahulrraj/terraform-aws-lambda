@@ -52,6 +52,10 @@ variable health_check_resource_path {
 variable "aws_lambda_function_role_arn" {
   default = ""
 }
+variable "create_iam_role" {
+  default = true
+}
+
 variable "lambda_zip_file_fullname" {
   description = "The package file full path name"
 }

@@ -7,10 +7,8 @@ module "api_resources" {
   name                        = "${var.name}"
   vpc_id                      = "${var.vpc_id}"
   subnets                     = "${var.subnets}"
-  aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? join(",", aws_iam_role.iam_role_lambda_function.*.arn) : var.aws_lambda_function_role_arn}"
+  aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? aws_iam_role.iam_role_lambda_function.arn : var.aws_lambda_function_role_arn}"
   #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn}"
-
-  
   handler                     = "${var.handler}"
   runtime                     = "${var.runtime}"
   timeout                     = "${var.timeout}"
@@ -39,8 +37,7 @@ module "secondary_api_resources" {
   name                        = "${var.name}"
   vpc_id                      = "${var.secondary_vpc_id}"
   subnets                     = "${var.secondary_subnets}"
-  #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? aws_iam_role.iam_role_lambda_function.arn : var.aws_lambda_function_role_arn}"
-  aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? join(",", aws_iam_role.iam_role_lambda_function.*.arn) : var.aws_lambda_function_role_arn}"
+  aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? aws_iam_role.iam_role_lambda_function.arn : var.aws_lambda_function_role_arn}"
   #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn}"
   handler                     = "${var.handler}"
   runtime                     = "${var.runtime}"

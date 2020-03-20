@@ -25,7 +25,6 @@ module "api_resources" {
   
 }
 
-
 module "secondary_api_resources" {
   enable    = "${var.routing_policy == "failover"}"
   providers {

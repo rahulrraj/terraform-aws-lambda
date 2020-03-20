@@ -35,14 +35,16 @@ resource "aws_security_group_rule" "sql_egress" {
 }
 ```
 # Examples
-To get you started, there are couple of examples in the example folder.
+To get you started, there are couple of examples in the example folder. You can run them locally. Make sure you have configured aws to run through cli command using default. Also make sure to update all place holders in the command below. Please note, providers in the example are all same, like dns,primary and secondary. You should update it to make sure you specify provider correctly. Running following command will give you idea what all resources will be created.
 
+```
 terraform plan -var="aws_vpc_id=<your vpc id>" -var="aws_vpc_subnet_primary=<your primary subnet>" -var="aws_vpc_subnet_secondary=<your secondary subnet>" -var="aws_zone_id=<zone id>"
 
 terraform plan -var="aws_vpc_id=<your vpc id>" -var="aws_secondary_vpc_id=<your vpc id>" -var="aws_vpc_subnet_primary=<your primary subnet>" -var="aws_vpc_subnet_secondary=<your secondary subnet>" -var="aws_vpc_subnet_dr_primary=<your primary subnet>" -var="aws_vpc_subnet_dr_secondary=<your secondary subnet>" -var="aws_zone_id=<zone id>"
 
+```
+
 # Known Issue
-- Running this for the first time may take little extra time as AWS certificate validation can take anywhere up to 40 min
-- Running this for the first time with failover fails with an error about missing s3 bucket (S3 Error Code: NoSuchKey. S3 Error Message: The specified key does not exist.). Re-run it and it should be fine. Looking into it to find how to handle it. 
+- Running this for the first time may take little extra time as AWS certificate validation can take anywhere up to 40 min. 
 - Deleting the security group which has been added to a lambda function, takes a long time as a security group is associated with the network interface. You can manually associate the network interface and then it will be quick. 
 - Terraform prior to 0.12 has issue with count functionality. Terraform seams to evaluate functions like “count” before its terraform plan or terraform apply runs. I have a conditional logic for creating IAM resource, where if IAM role is being passed, it should not create that. In case calling module pass IAM role, which has not yet been created, you will get error "value of 'count' cannot be computed". The workaround is to have IAM role created before you call this module.

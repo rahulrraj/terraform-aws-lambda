@@ -7,7 +7,7 @@ resource "aws_lambda_function" "lambda_function" {
   ]
   count         = "${var.enable ? 1 : 0}"
   function_name = "${var.name}"
-  role          = "${var.aws_lambda_function_role}"
+  role          = "${var.aws_lambda_function_role[0]}"
 
   s3_bucket     = "${aws_s3_bucket.lambda_s3_bucket.bucket}"
   s3_key        = "${var.lambda_zip_file_shortname}"

@@ -25,7 +25,9 @@ variable "subnets" {
 }
 
 ############### Lambda ########################
-variable "aws_lambda_function_role" {}
+variable "aws_lambda_function_role" {
+   type = "list"
+}
 
 variable "handler" {
   default = "not-required"

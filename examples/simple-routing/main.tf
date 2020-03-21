@@ -32,8 +32,9 @@ module "api_with_simple_routing" {
     aws             = "aws"
     aws.dns         = "aws"
   }
-  source                      = "../../"
-  #source                      = "git::https://github.com/rahulrraj/terraform-aws-lambda.git"
+  source                      = "git::https://git.acadian-asset.com/rraj/terraform-aws-lambda.git"
+  #source                      = "../../"
+  #source                      = "rahulrraj/lambda/aws"
   #version                     = "0.0.2"
   name                        = "${var.name}-simple"
   vpc_id                      = "${var.aws_vpc_id}"

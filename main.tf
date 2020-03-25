@@ -8,8 +8,8 @@ module "api_resources" {
   vpc_id                      = "${var.vpc_id}"
   subnets                     = "${var.subnets}"
   aws_lambda_function_role    = ["${aws_iam_role.iam_role_lambda_function.*.arn}","${var.aws_lambda_function_role_arn}"]
+  #passing role as list may seems unnecessary, but for the case when module is not creating IAM role and calling module passes it aws_iam_role.iam_role_lambda_function.arn will throw error as IAM role is not created
   #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? aws_iam_role.iam_role_lambda_function.arn : var.aws_lambda_function_role_arn}"
-  #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn}"
   handler                     = "${var.handler}"
   runtime                     = "${var.runtime}"
   timeout                     = "${var.timeout}"
@@ -38,8 +38,6 @@ module "secondary_api_resources" {
   vpc_id                      = "${var.secondary_vpc_id}"
   subnets                     = "${var.secondary_subnets}"
   aws_lambda_function_role    = ["${aws_iam_role.iam_role_lambda_function.*.arn}","${var.aws_lambda_function_role_arn}"]
-  #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn == "" ? aws_iam_role.iam_role_lambda_function.arn : var.aws_lambda_function_role_arn}"
-  #aws_lambda_function_role    = "${var.aws_lambda_function_role_arn}"
   handler                     = "${var.handler}"
   runtime                     = "${var.runtime}"
   enable_tracing_mode         = "${var.enable_tracing_mode}"
@@ -54,4 +52,3 @@ module "secondary_api_resources" {
   env_qualifier               = "${var.env_qualifier}"
   env_qualifier_no_dot        = "${var.env_qualifier_no_dot}"
 }
-

@@ -2,31 +2,6 @@ provider "aws" {
   region              = "us-east-1"
 }
 
-resource "aws_iam_role" "iam_role_lambda_function" {
-  name = "calling-module-lambdafunction-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": [
-                    "lambda.amazonaws.com"
-                ]
-            },
-            "Action": [
-                "sts:AssumeRole"
-            ]
-        }
-    ]
-}EOF
-
-
-}
-
-
 module "api_with_simple_routing" {
   providers {
     aws             = "aws"
@@ -50,3 +25,34 @@ module "api_with_simple_routing" {
   env_qualifier               = "${var.env_qualifier}"
   env_qualifier_no_dot        = "${var.env_qualifier_no_dot}"
 }
+
+
+############################################################################
+# IAM
+############################################################################
+
+resource "aws_iam_role" "iam_role_lambda_function" {
+  name = "calling-module-lambdafunction-role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "lambda.amazonaws.com"
+                ]
+            },
+            "Action": [
+                "sts:AssumeRole"
+            ]
+        }
+    ]
+}EOF
+
+
+}
+
+
+

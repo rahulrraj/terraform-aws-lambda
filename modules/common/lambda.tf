@@ -2,35 +2,37 @@
 # Lambda Function
 ############################################################################
 resource "aws_lambda_function" "lambda_function" {
-  depends_on  = [
-    "aws_s3_bucket_object.lambda_s3_bucket_object"
+  depends_on = [
+    "aws_s3_bucket_object.lambda_s3_bucket_object",
   ]
+
   count         = "${var.enable ? 1 : 0}"
   function_name = "${var.name}"
   role          = "${var.aws_lambda_function_role[0]}"
 
-  s3_bucket     = "${aws_s3_bucket.lambda_s3_bucket.bucket}"
-  s3_key        = "${var.lambda_zip_file_shortname}"
+  s3_bucket = "${aws_s3_bucket.lambda_s3_bucket.bucket}"
+  s3_key    = "${var.lambda_zip_file_shortname}"
 
-  timeout       = "${var.timeout}"
-  memory_size   = "${var.memory_size}"
+  timeout     = "${var.timeout}"
+  memory_size = "${var.memory_size}"
 
-  handler       = "${var.handler}"
-  runtime       = "${var.runtime}"
+  handler = "${var.handler}"
+  runtime = "${var.runtime}"
 
-  tags          = "${local.tags}"
+  tags = "${local.tags}"
 
   vpc_config {
     subnet_ids         = ["${var.subnets}"]
     security_group_ids = ["${aws_security_group.lambda_function_security_group.id}"]
   }
+
   tracing_config {
     mode = "${var.enable_tracing_mode}"
   }
+
   environment {
     variables = {
       ENV_QUALIFIER = "${var.env_qualifier}"
-      
     }
   }
 }
@@ -43,7 +45,7 @@ resource "aws_security_group" "lambda_function_security_group" {
   name        = "${var.name}-lambda-function"
   description = "allow inbound access from the correct location"
   vpc_id      = "${var.vpc_id}"
-  tags = "${local.tags}"
+  tags        = "${local.tags}"
 }
 
 resource "aws_security_group_rule" "lambda_function_security_group_rule_https" {
@@ -55,6 +57,7 @@ resource "aws_security_group_rule" "lambda_function_security_group_rule_https" {
   security_group_id = "${aws_security_group.lambda_function_security_group.id}"
   cidr_blocks       = ["10.0.0.0/8"]
 }
+
 resource "aws_security_group_rule" "lambda_function_security_group_rule_splunk" {
   count             = "${var.enable ? 1 : 0}"
   type              = "egress"
@@ -65,6 +68,7 @@ resource "aws_security_group_rule" "lambda_function_security_group_rule_splunk" 
   description       = "connect to splunk"
   cidr_blocks       = ["10.0.0.0/8"]
 }
+
 resource "aws_security_group_rule" "lambda_function_security_group_rule_http" {
   count             = "${var.enable ? 1 : 0}"
   type              = "ingress"

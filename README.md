@@ -3,7 +3,7 @@ Terraform module to create AWS Lambda and API gateway with {proxy+} integration.
 
 This module was developed to support REST API with lambda function with a primary use case of running lambda with .NET Core 3.1, so most of the default variables are set with keeping that in mind. As of now, the module has been tested with .NET Core 2.1, 2.2 and 3.1. In general, this module just creates AWS infrastructure, so ideally any runtime environment should work.
 
-The module supports simple (default) and failover routing policy configured through variable routing_policy. Refer to the following diagram which shows all the resources which are created by the module.
+The module supports simple (default) and failover routing policy configured through variable routing_policy. Refer to the following diagram which shows the resources which are created by the module.
 
 ![multi-region-lambda](documentation/multi-region-lambda.jpg)
 
@@ -26,7 +26,7 @@ In case you do not want the module to create an IAM role, the calling module can
   aws_lambda_function_role_arn = "${aws_iam_role.iam_role_lambda_function.arn}"
 ```
 
-Notice you need to set variable create_iam_role to false and pass arn of the role which you want to use for the lambda function. Passing flag create_iam_role may seem unnecessary, but with the Terraform before 0.12 there is an issue with count functionality. Terraform seams to evaluate functions like “count” before its terraform plan or terraform apply runs. So if I use count logic using  "${var.aws_lambda_function_role_arn == "" ? 1 : 0}" and IAM role which is being passed to the module does not exist before plan is executed, you will get error "value of 'count' cannot be computed" and hence I added a variable create_iam_role, based on which I decide if the module has to create IAM or not. The other workaround could be to force the calling module to pass the IAM role which exists, which didn't seem to be very user friendly. Adding notes here for my reference, as coming from a functional programming background, it took me some time to wrap my head around this.
+Notice you need to set variable create_iam_role to false and pass arn of the role which you want to use for the lambda function. Passing flag create_iam_role may seem unnecessary, but with the Terraform before version 0.12 there is an issue with the count functionality. Terraform seams to evaluate functions like “count” before its terraform plan or terraform apply runs. So if I use count logic using  "${var.aws_lambda_function_role_arn == "" ? 1 : 0}" and IAM role which is being passed to the module does not exist before plan is executed, you will get error "value of 'count' cannot be computed" and hence I added a variable create_iam_role, based on which I decide if the module has to create IAM or not. The other workaround could be to force the calling module to pass the IAM role which exists, which didn't seem to be very user friendly. Adding notes here for my reference, as coming from a functional programming background, it took me some time to wrap my head around this.
 
 
 
@@ -57,6 +57,25 @@ terraform plan -var="aws_vpc_id=<your vpc id>" -var="aws_secondary_vpc_id=<your 
 
 Once you apply the plan you should be able to go to the following url.
 {var.name}-simple.${var.domain}/WeatherForecast
+
+# Inputs
+Refer to variables.tf for list of input variable and descriptions around that.
+
+# Outputs
+Refer to output.tf for list of outputs and descriptions around that.
+
+# Dependencies
+The module internally uses a common module (modules/common). Using this I can avoid duplication of code for creating resources for secondary endpoints in case of failover routing policy. The acm code can also be moved to the common module which will remove some duplication. Its in my TODO list.
+
+# Developer Section
+- This has been build with Terraform v0.11.14, so you need to have that installed.
+- Before check-in code make sure to run command ```terraform fmt```
+
+# To Do
+- Upgrade to support specific http method, rather than just for proxy integration
+- Move acm code in the common module, will reduce few lines of code
+- output lambda arn and demonstrate how that can be used to extend lambda
+
 
 # Troubleshooting
 - Running this for the first time may take little extra time as AWS certificate validation can take anywhere up to 40 min. 

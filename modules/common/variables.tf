@@ -1,4 +1,4 @@
-variable "enable"{
+variable "enable" {
   default = true
 }
 
@@ -26,47 +26,51 @@ variable "subnets" {
 
 ############### Lambda ########################
 variable "aws_lambda_function_role" {
-   type = "list"
+  type = "list"
 }
 
 variable "handler" {
   default = "not-required"
 }
+
 variable "runtime" {
   description = "Example dotnetcore2.1"
-  default = "provided"
+  default     = "provided"
 }
-variable "enable_tracing_mode"{
+
+variable "enable_tracing_mode" {
   description = "Can be either PassThrough or Active"
-  default = "PassThrough"
+  default     = "PassThrough"
 }
-variable "timeout"{
+
+variable "timeout" {
   default = "300"
 }
-variable "memory_size"{
+
+variable "memory_size" {
   default = "512"
 }
+
 variable "lambda_zip_file_fullname" {
   description = "The package file full path name"
 }
+
 variable "lambda_zip_file_shortname" {
   description = "The package file full path name"
 }
-variable "stage_name"{
+
+variable "stage_name" {
   default = "all"
 }
 
 ############### S3 ########################
-variable "lambda_s3_bucket_name" {
-  
-}
+variable "lambda_s3_bucket_name" {}
 
 ############### locals ########################
 locals {
   tags = {
-    Name        = "${var.name}"
-    Department  = "${var.department_tag}"
-    Project     = "${var.project_tag}"
+    Name       = "${var.name}"
+    Department = "${var.department_tag}"
+    Project    = "${var.project_tag}"
   }
-
 }

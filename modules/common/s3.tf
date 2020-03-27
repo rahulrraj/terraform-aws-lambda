@@ -4,6 +4,7 @@ resource "aws_s3_bucket" "lambda_s3_bucket" {
   force_destroy = true
   tags          = "${local.tags}"
 }
+
 resource "aws_s3_bucket_object" "lambda_s3_bucket_object" {
   count  = "${var.enable ? 1 : 0}"
   bucket = "${aws_s3_bucket.lambda_s3_bucket.bucket}"
